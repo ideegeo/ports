@@ -33,7 +33,4 @@ GH_ACCOUNT=	algernon
 post-patch:
 	@${REINPLACE_CMD} 's/-ldl//' ${WRKSRC}/Makefile.am
 
-# Running |make test| isn't on poudriere menu yet, so force-feed
-pre-install:	do-test
-
 .include <bsd.port.mk>
