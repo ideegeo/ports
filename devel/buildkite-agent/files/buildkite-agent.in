@@ -1,0 +1,49 @@
+#!/bin/sh
+
+# $FreeBSD$
+#
+# PROVIDE: buildkite-agent
+# REQUIRE: LOGIN NETWORKING SERVERS
+# KEYWORD: shutdown
+#
+# Add the following lines to /etc/rc.conf.local or /etc/rc.conf
+# to enable this service:
+#
+# buildkite_agent_enable  (bool):   Set to NO by default.
+# Set it to YES to enable buildkite.
+#
+# buildkite_agent_config  (string): Optional full path for buildkite config file
+# buildkite_agent_token   (args):   Optional buildkite token
+# buildkite_agent_user    (user):   Set to buildkite by default.
+# buildkite_agent_group   (group):  Set to buildkite by default.
+# buildkite_agent_env     (env):    Pass in environment variables, "" by default
+
+. /etc/rc.subr
+
+name="buildkite_agent"
+rcvar=buildkite_agent_enable
+
+load_rc_config $name
+
+: ${buildkite_agent_enable="NO"}
+: ${buildkite_agent_logfile:="/var/log/buildkite_agent.log"}
+: ${buildkite_agent_user:="%%BUILDKITE_USER%%"}
+: ${buildkite_agent_group:="%%BUILDKITE_GROUP%%"}
+: ${buildkite_agent_config:="%%PREFIX%%/etc/buildkite-agent.cfg.sample"}
+pidfile="%%BUILDKITE_PIDFILE%%"
+command="/usr/sbin/daemon"
+command_args="-t ${name} \
+    -u ${buildkite_agent_user} \
+    -o /var/log/buildkite_agent.log \
+    -t buildkite_agent \
+    -r -P ${pidfile} \
+    /usr/local/bin/buildkite-agent start --config ${buildkite_agent_config}"
+required_files="${buildkite_agent_config}"
+
+buildkite_prestart()
+{
+    install -o ${buildkite_agent_user} /dev/null ${pidfile}
+}
+start_precmd="${name}_prestart"
+
+run_rc_command "$1"

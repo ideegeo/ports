@@ -1,0 +1,2 @@
+bin/buildkite-agent
+@sample %%ETCDIR%%/buildkite-agent.cfg.sample
