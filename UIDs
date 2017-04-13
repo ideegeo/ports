@@ -811,7 +811,7 @@ ebusd:*:854:854::0:0:eBUS Daemon user:/nonexistent:/usr/sbin/nologin
 # free: 863
 # free: 864
 # free: 865
-# free: 866
+buildkite-agent:*:866:866::0:0:BuildKite Daemon:/var/db/buildkite-agent:/usr/sbin/nologin
 # free: 867
 # free: 868
 # free: 869
@@ -861,7 +861,7 @@ _sj3:*:912:912::0:0:SJ3 Daemon:/nonexistent:/usr/sbin/nologin
 _relayd:*:913:913::0:0:Relay Daemon:/var/empty:/usr/sbin/nologin
 bitlbee:*:914:914::0:0:Bitlbee pseudo-user:/var/db/bitlbee:/usr/sbin/nologin
 logcheck:*:915:915::0:0:Logcheck system account:/var/lib/logcheck:/usr/local/bin/bash
-# free: 916
+# free 916
 _prayer:*:917:917::0:0:Prayer Account:/nonexistent:/usr/sbin/nologin
 nefu:*:918:918::0:0:Nefu daemon:/var/db/nefu:/usr/sbin/nologin
 couchdb:*:919:919::0:0:CouchDB Account:/var/empty:/usr/sbin/nologin
