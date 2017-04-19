@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	h2o
-PORTVERSION=	2.1.0
+PORTVERSION=	2.2.2
 DISTVERSIONPREFIX=	v
 CATEGORIES=	www
 
@@ -52,7 +52,7 @@ MRUBY_CMAKE_OFF=	-DWITH_MRUBY=OFF
 .if ${PORT_OPTIONS:MMRUBY}
 USE_RUBY=	yes
 RUBY_NO_RUN_DEPENDS=	yes
-BUILD_DEPENDS+=	bison:devel/bison
+USES+=	bison
 .endif
 
 post-patch:
