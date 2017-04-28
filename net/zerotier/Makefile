@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	zerotier
-PORTVERSION=	1.2.2
+PORTVERSION=	1.2.4
 CATEGORIES=	net
 
 MAINTAINER=	dch@skunkwerks.at
@@ -15,7 +15,6 @@ USES=		gmake compiler:c11
 USE_RC_SUBR=	zerotier
 
 USE_GITHUB=	yes
-GH_ACCOUNT=	zerotier
 GH_PROJECT=	ZeroTierOne
 
 CFLAGS+=	-flax-vector-conversions
