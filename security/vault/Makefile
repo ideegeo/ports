@@ -1,8 +1,9 @@
 # $FreeBSD$
 
 PORTNAME=	vault
-PORTVERSION=	0.7.3
+PORTVERSION=	0.8.0
 DISTVERSIONPREFIX=	v
+DISTVERSIONSUFFIX=	-beta1
 CATEGORIES=	security
 
 MAINTAINER=	swills@FreeBSD.org
@@ -15,7 +16,6 @@ BUILD_DEPENDS=	go>=1.7.1:lang/go
 USE_GITHUB=	yes
 GH_ACCOUNT=	hashicorp
 GH_SUBDIR=	src/github.com/${GH_ACCOUNT}/${PORTNAME}
-COMMIT_ID=	6dc20ce0220ba6da4be0b71261e7cc7cd6671ac6
 
 USE_RC_SUBR=	vault
 
