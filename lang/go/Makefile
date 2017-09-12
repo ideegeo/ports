@@ -2,7 +2,7 @@
 # $FreeBSD$
 
 PORTNAME=	go
-PORTVERSION=	1.8
+PORTVERSION=	1.9
 PORTEPOCH=	1
 CATEGORIES=	lang
 MASTER_SITES=	http://golang.org/dl/
@@ -16,9 +16,16 @@ LICENSE=	BSD3CLAUSE
 BUILD_DEPENDS=	go14>=1.4:lang/go14
 
 USES=		shebangfix
-SHEBANG_LANG=	sh
-SHEBANG_FILES=	${WRKSRC}/src/*.bash \
-		${WRKSRC}/doc/articles/wiki/*.bash
+SHEBANG_LANG=	sh perl
+SHEBANG_FILES=	src/*.bash \
+		doc/articles/wiki/*.bash \
+		lib/time/*.bash \
+		misc/benchcmp \
+		misc/nacl/go_nacl_*_exec \
+		src/cmd/dist/*.bash \
+		src/cmd/go/*.sh \
+		src/net/http/cgi/testdata/*.cgi \
+		src/regexp/syntax/*.pl
 
 sh_OLD_CMD=	"/usr/bin/env bash"
 sh_CMD=		${SH}
@@ -67,5 +74,16 @@ do-install:
 
 regression-test: build
 	cd ${WRKSRC}/src && GOROOT=${WRKSRC} PATH=${WRKSRC}/bin:${PATH} ${SH} run.bash --no-rebuild --banner
+
+pkg-plist: stage
+	${RM} ${WRKDIR}/pkg-plist
+.for command in go gofmt
+	${ECHO_CMD} bin/${command} >> ${WRKDIR}/pkg-plist
+.endfor
+	cd ${WRKDIR} && ${FIND} go -type f | \
+		${SED} -e "s/\/${OPSYS:tl}_${GOARCH}\//\/%%opsys_ARCH%%\//g" | \
+		${SORT} >> ${WRKDIR}/pkg-plist
+	${ECHO_CMD} "@dir go/pkg/obj/%%opsys_ARCH%%" >> ${WRKDIR}/pkg-plist
+	${CP} ${WRKDIR}/pkg-plist ${.CURDIR}/pkg-plist
 
 .include <bsd.port.post.mk>
