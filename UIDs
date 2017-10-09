@@ -834,7 +834,7 @@ chronyd:*:849:849::0:0:chronyd user:/nonexistent:/usr/sbin/nologin
 # free: 885
 # free: 886
 # free: 887
-buildkite-agent:*:888:888::0:0:BuildKite Daemon:/var/db/buildkite-agent:/usr/sbin/nologin
+buildkite:*:888:888::0:0:BuildKite Daemon:/var/db/buildkite:/usr/sbin/nologin
 # free: 889
 # free: 890
 # free: 891
