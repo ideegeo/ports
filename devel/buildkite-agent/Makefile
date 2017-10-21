@@ -1,8 +1,7 @@
 # $FreeBSD$
 
 PORTNAME=	buildkite-agent
-PORTVERSION=	3.0b32
-PORTREVISION=	7
+PORTVERSION=	3.0b33
 CATEGORIES=	devel sysutils
 
 MAINTAINER=	dch@skunkwerks.at

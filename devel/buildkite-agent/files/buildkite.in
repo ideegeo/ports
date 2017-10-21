@@ -17,6 +17,7 @@
 # buildkite_account (user):   Set to nobody by default.
 # buildkite_vars    (env):    Pass in environment variables, "" by default
 # buildkite_options (string): Pass in additional flags to agent
+# buildkite_flags   (string): Pass in additional flags to daemon(8)
 
 . /etc/rc.subr
 
@@ -29,12 +30,12 @@ load_rc_config $name
 : ${buildkite_logfile:=/var/log/buildkite.log}
 : ${buildkite_account:=nobody}
 : ${buildkite_config:="%%ETCDIR%%/buildkite-agent.cfg"}
+: ${buildkite_flags=""}
 : ${buildkite_options=""}
 : ${buildkite_vars=""}
 
 pidfile=/var/run/buildkite.pid
 command=/usr/sbin/daemon
-#    -o /var/log/buildkite.log \
 command_args="-t ${name} \
     -u ${buildkite_account} \
     -r -P ${pidfile} \
