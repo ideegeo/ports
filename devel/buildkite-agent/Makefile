@@ -29,9 +29,9 @@ ETCDIR=		${PREFIX}/etc/buildkite
 SUB_FILES=	pkg-message
 
 post-patch:
-	@${REINPLACE_CMD} -I '' -e 's|/bin/bash|/usr/local/bin/bash|g' \
+	@${REINPLACE_CMD} -I '' -e 's|/bin/bash|${LOCALBASE}/bin/bash|g' \
 			`${FIND} ${WRKSRC}/packaging/linux -type f`
-	@${REINPLACE_CMD} -I '' -e 's|/bin/bash|/usr/local/bin/bash|g' \
+	@${REINPLACE_CMD} -I '' -e 's|/bin/bash|${LOCALBASE}/bin/bash|g' \
 			`${FIND} ${WRKSRC}/bootstrap -type f -name *.go`
 
 do-install:
