@@ -11,7 +11,7 @@ COMMENT=	Optimized HTTP/2 server including support for TLS 1.3 and HTTP/1.x
 
 LICENSE=	MIT
 
-USES=		cmake:noninja compiler:c11 cpe perl5 shebangfix ssl
+USES=		cmake compiler:c11 cpe perl5 shebangfix ssl
 CPE_VENDOR=	h2o_project
 USE_GITHUB=	yes
 USE_PERL5=	run
