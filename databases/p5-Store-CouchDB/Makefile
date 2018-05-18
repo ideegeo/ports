@@ -18,7 +18,7 @@ BUILD_DEPENDS=	p5-Moo>=0:devel/p5-Moo \
 		p5-JSON-XS>=0:converters/p5-JSON-XS \
 		curl>=0:ftp/curl \
 		p5-libwww>=0:www/p5-libwww \
-		p5-URI>=0:www/p5-URI \
+		p5-URI>=0:net/p5-URI \
 		p5-URI-Escape-XS>=0:www/p5-URI-Escape-XS
 RUN_DEPENDS:=	${BUILD_DEPENDS}
 
