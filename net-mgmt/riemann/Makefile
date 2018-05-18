@@ -2,11 +2,11 @@
 # $FreeBSD$
 
 PORTNAME=	riemann
-PORTVERSION=	0.2.14
+DISTVERSION=	0.3.1
 CATEGORIES=	net-mgmt java
 MASTER_SITES=	https://github.com/${PORTNAME}/${PORTNAME}/releases/download/${PORTVERSION}/
 
-MAINTAINER=	dch@skunkwerks.at
+MAINTAINER=	dch@FreeBSD.org
 COMMENT=	Monitors distributed systems
 
 LICENSE=	EPL
