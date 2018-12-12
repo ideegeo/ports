@@ -1,0 +1,15 @@
+{
+  "physical": {
+    "127.0.0.0/8": {
+      "blacklist": true
+    },
+    "10.0.0.0/8": {
+      "blacklist": true
+    }
+  },
+  "settings": {
+    "primaryPort": 0,
+    "allowTcpFallbackRelay": false
+  }
+}
+
