@@ -2,7 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	graylog
-DISTVERSION=	2.4.6
+DISTVERSION=	3.0.0
+
 CATEGORIES=	sysutils java
 MASTER_SITES=	https://packages.graylog2.org/releases/graylog/ \
 		http://packages.graylog2.org/releases/graylog/
@@ -24,7 +25,7 @@ NO_BUILD=	yes
 NO_ARCH=	yes
 
 USE_RC_SUBR=	graylog
-SUB_FILES=	server.conf log4j2.xml pkg-message graylog_logging.xml
+SUB_FILES=	log4j2.xml pkg-message
 
 GRAYLOGUSER?=	graylog
 GRAYLOGGROUP?=	${GRAYLOGUSER}
@@ -38,20 +39,21 @@ SUB_LIST=	GRAYLOGUSER=${GRAYLOGUSER} \
 		GRAYLOG_LOGS_DIR=${GRAYLOG_LOGS_DIR} \
 		GRAYLOG_DATA_DIR=${GRAYLOG_DATA_DIR}
 
-PLIST_SUB=	GRAYLOG_DATA_DIR=${GRAYLOG_DATA_DIR} \
+PLIST_SUB=	DISTVERSION=${DISTVERSION} \
+		GRAYLOG_DATA_DIR=${GRAYLOG_DATA_DIR} \
 		GRAYLOG_LOGS_DIR=${GRAYLOG_LOGS_DIR} \
 		GRAYLOGUSER=${GRAYLOGUSER} \
 		GRAYLOGGROUP=${GRAYLOGGROUP} \
-		PORTVERSION=${PORTVERSION}
+		PORTNAME=${PORTNAME}
 
 do-install:
 	@${MKDIR} ${STAGEDIR}${DATADIR}/plugin
-	@${MKDIR} ${STAGEDIR}${ETCDIR}/server
+	@${MKDIR} ${STAGEDIR}${ETCDIR}
 	@${MKDIR} ${STAGEDIR}${GRAYLOG_DATA_DIR}
 	@${MKDIR} ${STAGEDIR}${GRAYLOG_LOGS_DIR}
 	${INSTALL_DATA} ${WRKSRC}/graylog.jar ${STAGEDIR}${DATADIR}
+	${INSTALL_DATA} ${WRKSRC}/graylog.conf.example ${STAGEDIR}${ETCDIR}/graylog.conf.example
 	cd ${WRKSRC}/plugin && ${COPYTREE_SHARE} . ${STAGEDIR}${DATADIR}/plugin
-	${INSTALL_DATA} ${WRKDIR}/server.conf ${STAGEDIR}${ETCDIR}/server/server.conf.sample
-	${INSTALL_DATA} ${WRKDIR}/log4j2.xml ${STAGEDIR}${ETCDIR}/server/log4j2.xml.sample
+	${INSTALL_DATA} ${WRKDIR}/log4j2.xml ${STAGEDIR}${ETCDIR}/log4j2.xml.example
 
 .include <bsd.port.mk>
