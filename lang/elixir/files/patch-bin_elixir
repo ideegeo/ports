@@ -1,5 +1,14 @@
---- bin/elixir.orig	2018-07-26 08:21:44 UTC
+--- bin/elixir.orig	2019-01-30 10:37:58 UTC
 +++ bin/elixir
+@@ -40,7 +40,7 @@ readlink_f () {
+ }
+ 
+ MODE="elixir"
+-ERL_EXEC="erl"
++ERL_EXEC="/usr/local/lib/erlang21/bin/erl"
+ ERL=""
+ I=1
+ 
 @@ -120,4 +120,16 @@ if [ -z "$ERL_PATH" ]; then
    ERL_PATH="$ERL_EXEC"
  fi

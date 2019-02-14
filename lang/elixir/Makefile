@@ -3,7 +3,7 @@
 
 PORTNAME=	elixir
 DISTVERSIONPREFIX=	v
-DISTVERSION=	1.7.4
+DISTVERSION=	1.8.1
 CATEGORIES=	lang
 MASTER_SITES+=	https://github.com/elixir-lang/elixir/releases/download/${DISTVERSIONPREFIX}${PORTVERSION}/:doc
 DISTFILES=	Docs.zip:doc
@@ -14,8 +14,10 @@ COMMENT=	Functional, meta-programming aware language built on top of Erlang VM
 
 LICENSE=	APACHE20
 
-BUILD_DEPENDS=	erlang>=19:lang/erlang
-RUN_DEPENDS=	erlang>=19:lang/erlang
+BUILD_DEPENDS=	${LOCALBASE}/lib/erlang21/bin/erlc:lang/erlang-runtime21
+RUN_DEPENDS=	${LOCALBASE}/lib/erlang21/bin/erl:lang/erlang-runtime21
+MAKE_ENV=	PATH=${LOCALBASE}/lib/erlang21/bin:${PATH}
+VARS=		ERL_PATH=${LOCALBASE}/lib/erlang21/bin/erl
 
 USES=		gmake
 
