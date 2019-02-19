@@ -3,7 +3,7 @@
 
 PORTNAME=	couchdb2
 DISTVERSION=	2.3.0
-PORTREVISION=	2
+PORTREVISION=	3
 CATEGORIES=	databases
 MASTER_SITES=	APACHE/couchdb/source/${DISTVERSION}
 DISTNAME=	apache-couchdb-${DISTVERSION}
@@ -41,13 +41,9 @@ OPTIONS_DEFINE=	DOCS
 OPTIONS_DEFAULT=OTP21
 OPTIONS_SUB=	yes
 
+# leave the OTP options machinery in to support OTP22 when it arrives
 OPTIONS_SINGLE=	ENV
-OPTIONS_SINGLE_ENV=OTP20 OTP21
-OTP20_DESC=	Use Erlang OTP20
-OTP20_BUILD_DEPENDS=${LOCALBASE}/lib/erlang20/bin/erlc:lang/erlang-runtime20
-OTP20_RUN_DEPENDS=${LOCALBASE}/lib/erlang20/bin/erl:lang/erlang-runtime20
-OTP20_MAKE_ENV=	PATH=${LOCALBASE}/lib/erlang20/bin:${PATH}
-OTP20_VARS=	ERL_PATH=${LOCALBASE}/lib/erlang20/bin/erl
+OPTIONS_SINGLE_ENV=OTP21
 OTP21_DESC=	Use Erlang OTP21
 OTP21_BUILD_DEPENDS=${LOCALBASE}/lib/erlang21/bin/erlc:lang/erlang-runtime21
 OTP21_RUN_DEPENDS=${LOCALBASE}/lib/erlang21/bin/erl:lang/erlang-runtime21
