@@ -1,59 +1,55 @@
 # Created by: Dave Cottlehuber <dch@FreeBSD.org>
 # $FreeBSD$
 
-PORTNAME=	couchdb2
-DISTVERSION=	2.3.0
-PORTREVISION=	3
-CATEGORIES=	databases
+PORTNAME=		couchdb2
+DISTVERSION=	2.3.1
+CATEGORIES=		databases
 MASTER_SITES=	APACHE/couchdb/source/${DISTVERSION}
-DISTNAME=	apache-couchdb-${DISTVERSION}
+DISTNAME=		apache-couchdb-${DISTVERSION}
 
-MAINTAINER=	dch@FreeBSD.org
-COMMENT=	JSON document database with HTTP API and scalable multi-master sync
+MAINTAINER=		dch@FreeBSD.org
+COMMENT=		JSON document database with HTTP API and scalable multi-master sync
 
-LICENSE=	APACHE20 BSD3CLAUSE ISCL WTFPL OFL11
+LICENSE=		APACHE20 BSD3CLAUSE ISCL WTFPL OFL11
 LICENSE_COMB=	multi
 
-BUILD_DEPENDS=	rebar:devel/rebar
+BUILD_DEPENDS=	rebar:devel/rebar \
+				erlang-runtime21>=2.1.2.6:lang/erlang-runtime21
 LIB_DEPENDS=	libicudata.so:devel/icu \
-		libmozjs185.so:lang/spidermonkey185
-RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}requests>0:www/py-requests@${PY_FLAVOR}
+				libmozjs185.so:lang/spidermonkey185
+RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}requests>0:www/py-requests@${PY_FLAVOR} \
+				erlang-runtime21>=2.1.2.6:lang/erlang-runtime21
 
-USES=		cpe gmake libtool ncurses python:run shebangfix
+USES=			cpe gmake libtool ncurses python:run shebangfix
 USE_RC_SUBR=	couchdb2
 
-CPE_VENDOR=	apache
+CPE_VENDOR=		apache
 SHEBANG_FILES=	rel/overlay/bin/couchup
 
-USERS=		couchdb
-GROUPS=		couchdb
+USERS=			couchdb
+GROUPS=			couchdb
 
-SUB_FILES=	pkg-message
-SUB_LIST=	APPDIR=${APPDIR} ERL_PATH=${ERL_PATH} PORTNAME=${PORTNAME} RELDIR=${RELDIR}
-PLIST_SUB=	VERSION=${DISTVERSION}
+SUB_FILES=		pkg-message
+SUB_LIST=		APPDIR=${APPDIR} \
+				ERL_PATH=${LOCALBASE}/lib/erlang21/bin/erl \
+				PORTNAME=${PORTNAME} \
+				RELDIR=${RELDIR}
+PLIST_SUB=		VERSION=${DISTVERSION}
 
 HAS_CONFIGURE=	yes
 CONFIGURE_ARGS=	--skip-deps --user ${USERS} --disable-docs --disable-fauxton
 
-ALL_TARGET=	release
+ALL_TARGET=		release
+
+MAKE_ENV=		PATH=${LOCALBASE}/lib/erlang21/bin:${PATH}
 
 OPTIONS_DEFINE=	DOCS
-OPTIONS_DEFAULT=OTP21
 OPTIONS_SUB=	yes
 
-# leave the OTP options machinery in to support OTP22 when it arrives
-OPTIONS_SINGLE=	ENV
-OPTIONS_SINGLE_ENV=OTP21
-OTP21_DESC=	Use Erlang OTP21
-OTP21_BUILD_DEPENDS=${LOCALBASE}/lib/erlang21/bin/erlc:lang/erlang-runtime21
-OTP21_RUN_DEPENDS=${LOCALBASE}/lib/erlang21/bin/erl:lang/erlang-runtime21
-OTP21_MAKE_ENV=	PATH=${LOCALBASE}/lib/erlang21/bin:${PATH}
-OTP21_VARS=	ERL_PATH=${LOCALBASE}/lib/erlang21/bin/erl
-
-DBDIR?=		/var/db/${PORTNAME}
-LOGFILE?=	/var/log/${PORTNAME}/couch.log
-APPDIR=		${LOCALBASE}/libexec/${PORTNAME}
-RELDIR=		${APPDIR}/releases/${DISTVERSION}
+DBDIR?=			/var/db/${PORTNAME}
+LOGFILE?=		/var/log/${PORTNAME}/couch.log
+APPDIR=			${LOCALBASE}/libexec/${PORTNAME}
+RELDIR=			${APPDIR}/releases/${DISTVERSION}
 
 post-patch:
 	@${REINPLACE_CMD} \
