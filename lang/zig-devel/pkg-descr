@@ -1,0 +1,12 @@
+Zig is an open-source programming language designed for robustness,
+optimality, and maintainability, to compete with C and Rust.
+
+It's entire syntax is a 500 line PEG grammar, with no hidden control
+flow, suprise memory allocations, no preprocessor, and no macros.
+
+It supports 4 build modes, across debug, speed, code size, and has its
+own build system, and can optionally compile C code as well, to multiple
+targets, including UEFI, Linux, FreeBSD, Windows, and OSX, with or
+without a libc as required.
+
+WWW: https://ziglang.org/
