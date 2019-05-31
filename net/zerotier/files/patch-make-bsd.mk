@@ -1,11 +1,11 @@
---- make-bsd.mk.orig	2018-09-13 10:12:22 UTC
+--- make-bsd.mk.orig	2019-05-31 21:02:37 UTC
 +++ make-bsd.mk
-@@ -159,7 +159,7 @@ clean:
- 	rm -rf *.a *.o node/*.o controller/*.o osdep/*.o service/*.o ext/http-parser/*.o build-* zerotier-one zerotier-idtool zerotier-selftest zerotier-cli $(ONE_OBJS) $(CORE_OBJS)
+@@ -128,7 +128,7 @@ endif
  
- debug:	FORCE
--	gmake -j 4 ZT_DEBUG=1
-+	$(MAKE) -j 4 ZT_DEBUG=1
+ override DEFS+=-DZT_BUILD_PLATFORM=$(ZT_BUILD_PLATFORM) -DZT_BUILD_ARCHITECTURE=$(ZT_ARCHITECTURE) -DZT_SOFTWARE_UPDATE_DEFAULT="\"disable\""
  
- install:	one
- 	rm -f /usr/local/sbin/zerotier-one
+-CXXFLAGS+=$(CFLAGS) -fno-rtti -std=c++11 #-D_GLIBCXX_USE_C99 -D_GLIBCXX_USE_C99_MATH -D_GLIBCXX_USE_C99_MATH_TR1
++CXXFLAGS+=$(CFLAGS) -frtti -std=c++11 #-D_GLIBCXX_USE_C99 -D_GLIBCXX_USE_C99_MATH -D_GLIBCXX_USE_C99_MATH_TR1
+ 
+ all:	one
+ 
