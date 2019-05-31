@@ -2,8 +2,8 @@
 # $FreeBSD$
 
 PORTNAME=	zerotier
-DISTVERSION=	1.2.12
-PORTREVISION=	3
+DISTVERSION=	1.2.12-253
+DISTVERSIONSUFFIX=	-gd4199dd
 CATEGORIES=	net
 
 MAINTAINER=	dch@FreeBSD.org
@@ -19,8 +19,9 @@ USE_RC_SUBR=	zerotier
 
 USE_GITHUB=	yes
 GH_PROJECT=	ZeroTierOne
-
-CFLAGS+=	-flax-vector-conversions
+GH_TAGNAME=	d4199dd
+ 
+CXXFLAGS+=	-flax-vector-conversions -Wno-unused-private-field
 
 OPTIONS_DEFINE=	DBG
 DBG_DESC=	Enable foreground debugging for zerotier-one daemon
