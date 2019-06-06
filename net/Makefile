@@ -1139,6 +1139,7 @@
     SUBDIR += quoted
     SUBDIR += rabbiteer
     SUBDIR += rabbitmq
+    SUBDIR += rabbitmq-devel
     SUBDIR += rabbitmq-c
     SUBDIR += rabbitmq-c-devel
     SUBDIR += radcli
