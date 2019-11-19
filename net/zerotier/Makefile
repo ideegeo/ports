@@ -2,17 +2,19 @@
 # $FreeBSD$
 
 PORTNAME=	zerotier
-DISTVERSION=	1.4.2
+DISTVERSION=	1.4.6
 
 CATEGORIES=	net
 
 MAINTAINER=	dch@FreeBSD.org
 COMMENT=	Network virtualization everywhere
 
-LICENSE=	GPLv3+ MIT PD
-LICENSE_COMB=	multi
-LICENSE_FILE_GPLv3+ =${WRKSRC}/LICENSE.GPL-3
-LICENSE_FILE_MIT=${WRKSRC}/ext/json/LICENSE.MIT
+LICENSE=		BUSINESS MIT PD
+LICENSE_COMB=		multi
+LICENSE_NAME_BUSINESS=	Business Source License
+LICENSE_FILE_BUSINESS=	${WRKSRC}/LICENSE.txt
+LICENSE_PERMS_BUSINESS=	dist-mirror dist-sell pkg-mirror pkg-sell auto-accept
+LICENSE_FILE_MIT=	${WRKSRC}/ext/json/LICENSE.MIT
 
 USES=		gmake compiler:c++14-lang
 USE_RC_SUBR=	zerotier
