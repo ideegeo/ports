@@ -1,12 +1,10 @@
 # $FreeBSD$
 
 PORTNAME=	openbgpd
-PORTVERSION=	5.2.20121209
-PORTREVISION=	3
+DISTVERSION=	6.6p0
 PORTEPOCH=	1
 CATEGORIES=	net
 MASTER_SITES=	OPENBSD/OpenBGPD
-DISTNAME=	${PORTNAME}-4.6
 DIST_SUBDIR=	${PORTNAME}
 
 MAINTAINER=	hrs@FreeBSD.org
@@ -17,12 +15,10 @@ LICENSE_FILE=	${FILESDIR}/COPYING
 
 CONFLICTS=	zebra-[0-9]* quagga-[0-9]*
 
-USES=		tar:tgz uidfix
+USES=		autoreconf libtool uidfix
+GNU_CONFIGURE=	yes
 USE_RC_SUBR=	${PORTNAME}
 
-NO_WRKSUBDIR=	yes
-PLIST_FILES=	sbin/bgpctl sbin/bgpd man/man5/bgpd.conf.5.gz \
-		man/man8/bgpctl.8.gz man/man8/bgpd.8.gz
 SUB_FILES=	pkg-message
 USERS=		_bgpd
 GROUPS=		_bgpd
@@ -34,8 +30,12 @@ IPV6LLPEER_MAKE_ARGS=	-DIPV6_LINKLOCAL_PEER
 
 post-patch:
 	@${REINPLACE_CMD} -e "s|%%PREFIX%%|${PREFIX}|g"	\
-		${WRKSRC}/bgpd/bgpd.8			\
-		${WRKSRC}/bgpd/bgpd.conf.5		\
-		${WRKSRC}/bgpctl/bgpctl.8
+		${WRKSRC}/src/bgpd/bgpd.8			\
+		${WRKSRC}/src/bgpd/bgpd.conf.5		\
+		${WRKSRC}/src/bgpctl/bgpctl.8
+
+post-install:
+	@${MV} ${STAGEDIR}/${PREFIX}/etc/bgpd.conf \
+			${STAGEDIR}/${PREFIX}/etc/bgpd.conf.sample
 
 .include <bsd.port.mk>
