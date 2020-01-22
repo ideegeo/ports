@@ -2,53 +2,80 @@
 # $FreeBSD$
 
 PORTNAME=	mono
-PORTVERSION=	5.10.1.57
-PORTREVISION=	2
+# BRANCH: 2019-12
+PORTVERSION=	6.8.0.96
 CATEGORIES=	lang
 MASTER_SITES=	https://download.mono-project.com/sources/mono/
 DISTFILES=	${PORTNAME}-${PORTVERSION}${EXTRACT_SUFX}
 
-MAINTAINER=	mono@FreeBSD.org
+MAINTAINER=	prj@rootwyrm.com
 COMMENT=	Open source implementation of .NET Development Framework
 
 LICENSE=	MIT
 LICENSE_FILE=	${WRKSRC}/LICENSE
 
-ONLY_FOR_ARCHS=		amd64 armv6 armv7 i386 powerpc
+ONLY_FOR_ARCHS=		aarch64 amd64 armv6 armv7 i386
 
 BUILD_DEPENDS=	p5-XML-Parser>=0:textproc/p5-XML-Parser \
 		bash:shells/bash \
 		cmake>0:devel/cmake
-LIB_DEPENDS=	libinotify.so:devel/libinotify
+LIB_DEPENDS=	libiconv.so:converters/libiconv
 RUN_DEPENDS=	${PYTHON_PKGNAMEPREFIX}pillow>=0:graphics/py-pillow@${PY_FLAVOR} \
 		ca_root_nss>=0:security/ca_root_nss
 
 CONFLICTS_INSTALL=	czmq-3*
 
-OPTIONS_DEFINE=		MONOLITE NLS X11
-OPTIONS_DEFAULT=	MONOLITE X11
+OPTIONS_DEFINE=		MONOLITE INOTIFY NINJA NLS ODBC SQLITE X11 DEVELOPER
+OPTIONS_DEFAULT=	MONOLITE SQLITE X11
 OPTIONS_SUB=	yes
 
 MONOLITE_DESC=		Use monolite to bootstrap mcs (otherwise use installed mcs)
 MONOLITE_DISTFILES=	monolite-linux-${MONOLITE_VERSION}-latest.tar.gz:monolite
 MONOLITE_MASTER_SITES=	http://download.mono-project.com/monolite/:monolite
-MONOLITE_VERSION=	1051000004
+# 2019-12-17 @ a1eaa013
+MONOLITE_VERSION=	a1eaa013-ce0e-4e19-a022-0bd0541b9709
+
+INOTIFY_DESC=	Use libinotify to provide inotify support (BROKEN)
+INOTIFY_CONFIGURE_OFF=	--disable-inotify
+INOTIFY_LIB_DEPENDS=	libinotify.so:devel/libinotify
+
+NINJA_DESC=	Use ninja to build wherever possible (EXPERIMENTAL)
+NINJA_CONFIGURE_OFF=	--disable-ninja
+NINJA_BUILD_DEPENDS=	ninja>0:devel/ninja
 
 NLS_CONFIGURE_OFF=	--disable-nls
 NLS_USES=	gettext
 
+ODBC_DESC=	System.Data: support for unixODBC
+ODBC_BUILD_DEPENDS=	unixODBC>0:databases/unixODBC
+ODBC_LIB_DEPENDS=	libodbc.so:databases/unixODBC
+
+SQLITE_DESC=	System.Data: support for SQLite3
+SQLITE_RUN_DEPENDS=	sqlite3>0:databases/sqlite3
+
 X11_USES=	display:test
+X11_CONFIGURE_WITH=	x
+X11_RUN_DEPENDS=	pango>0:x11-toolkits/pango \
+		libgdiplus>0:x11-toolkits/libgdiplus
+
+DEVELOPER_DESC=	Build for Mono development (disables crash privacy)
+.if ${PORT_OPTIONS:DEVELOPER}
+CONFIGURE_ARGS+=--enable-icall-symbol-map --enable-icall-export --with-crash_privacy=no 
+.endif
 
 USES=	autoreconf bison compiler:c11 cpe gmake iconv libtool \
-	pathfix perl5 python:2.7 shebangfix tar:bzip2
+	pathfix perl5 python:3.7 shebangfix tar:xz
 USE_PERL5=	build
 GNU_CONFIGURE=	yes
 USE_LDCONFIG=	yes
-SHEBANG_FILES=	scripts/mono-heapviz mono/mini/genmdesc.py mono/tests/test_lldb.py
+SHEBANG_FILES=	scripts/mono-package-runtime scripts/mono-heapviz mono/mini/genmdesc.py \
+		mono/tests/test_lldb.py mono/tests/gc-descriptors/gen-descriptor-tests.py
 BINARY_ALIAS=	python=${PYTHON_CMD}
 
-CONFIGURE_ARGS=	--disable-dtrace --enable-btls
-CONFIGURE_ENV=	ac_cv_header_sys_inotify_h=no
+CONFIGURE_ARGS_aarch64=	--with-csc=mcs --disable-btls
+CONFIGURE_ARGS=	${CONFIGURE_ARGS_${ARCH}} --disable-dtrace --disable-boehm
+# Broken upstream by the kqueue fixes, work ongoing
+#CONFIGURE_ENV=	ac_cv_header_sys_inotify_h=yes
 
 MAKE_ENV=	MONO_SHARED_DIR="${WRKDIR}" \
 		INSTALL_STRIP_FLAG="${STRIP}" \
