@@ -1,8 +1,8 @@
 # Created by: Thomas Bartelmess <thomas@bartelmess.io>
-# $FreeBSD$
+# $FreeBSD: head/sysutils/graylog/Makefile 535991 2020-05-20 10:35:52Z dch $
 
 PORTNAME=	graylog
-DISTVERSION=	3.2.5
+DISTVERSION=	3.3.0
 CATEGORIES=	sysutils java
 MASTER_SITES=	https://packages.graylog2.org/releases/graylog/
 
