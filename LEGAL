@@ -238,3 +238,6 @@ zerotier-*	net/zerotier	No SaaS or Govt usage: https://github.com/zerotier/ZeroT
 libretro-snes9x-*		emulators/libretro-snes9x	Commercial users must seek permission from copyright holders.
 libretro-snes9x-*		emulators/libretro-snes9x2005	Commercial users must seek permission from copyright holders.
 libretro-snes9x-*		emulators/libretro-snes9x2010	Commercial users must seek permission from copyright holders.
+prince-*		print/prince		For any commercial purpose, you must request a license from https://www.princexml.com/
+prince12-*		print/prince12		For any commercial purpose, you must request a license from https://www.princexml.com/
+
