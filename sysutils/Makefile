@@ -37,6 +37,7 @@
     SUBDIR += and
     SUBDIR += android-file-transfer
     SUBDIR += android-file-transfer-qt5
+    SUBDIR += angle-grinder
     SUBDIR += ansible
     SUBDIR += ansible-sysrc
     SUBDIR += ansible27
